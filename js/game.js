@@ -16,6 +16,9 @@ const treasurePosition = {x:400, y:0};
 const ghostPosition = {x:600, y:200};
 const map = document.querySelector('.map');
 
+
+let gameover = false;
+
 // Win Screen
 const winCondition = () => {
 if (heroPosition.x === treasurePosition.x && heroPosition.y === treasurePosition.y) {
@@ -30,6 +33,7 @@ if (heroPosition.x === treasurePosition.x && heroPosition.y === treasurePosition
     winMessage.style.top= "260px";
     winMessage.style.left= "300px";
     createButton(winMessage);
+    gameover = true;
 }
 }
 
@@ -47,6 +51,7 @@ const lostCondtion = () => {
         lostMessage.style.top= "260px";
         lostMessage.style.left= "300px";
         createButton(lostMessage);
+        gameover = true;
     }
 }
 
@@ -65,6 +70,7 @@ const createButton = (msg) => {
 
 
 document.addEventListener("keydown", (event) => {
+    if (gameover) return;
     switch (event.keyCode) {
         case 39:
         case 68:
@@ -145,6 +151,7 @@ document.addEventListener("keydown", (event) => {
 
 // Logic to get the ghost follow hero
 setInterval (() => {
+    if (gameover) return;
     const moveX = Math.round(Math.random());
     //math.random = 0->1 math.round forces 0|1 0 is falsy 1 is truthy. 3 cases
     if (moveX) {
