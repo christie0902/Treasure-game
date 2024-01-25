@@ -46,6 +46,7 @@ document.addEventListener("keydown", (event) => {
     hero.style.top = heroPosition.y + "px";
     hero.style.left = heroPosition.x + "px";
     
+    // Winning screen
     if (heroPosition.x === treasurePosition.x && heroPosition.y === treasurePosition.y) {
         map.style.opacity="0.5";
         const winMessage = document.createElement('h1');
@@ -59,6 +60,7 @@ document.addEventListener("keydown", (event) => {
         winMessage.style.left= "300px";
     }
 
+    // Losing screen
     if (heroPosition.x === ghostPosition.x && heroPosition.y === ghostPosition.y) {
         map.style.opacity="0.5";
         const lostMessage = document.createElement('h1');
@@ -73,6 +75,42 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
+setInterval (() => {
+    const moveX = Math.ceil(Math.random()*3);
+    const moveY = Math.ceil(Math.random()*3);
+    //math.random = 0->1 math.round forces 0|1 0 is falsy 1 is truthy. 3 cases
+
+    
+    switch(moveX) {
+        case 1:
+            ghostPosition.x += 100;
+        case 2:
+            ghostPosition.x -= 100;
+            break;
+    }
+    
+    switch(moveY){
+        case 1:
+            ghostPosition.y += 100;
+            break;
+        case 2:
+        ghostPosition.y -= 100;
+        break;
+    }
+    if (ghostPosition.x > 700) ghostPosition.x = 700;
+    if (ghostPosition.x < 0 ) ghostPosition.x = 0;
+    if (ghostPosition.y > 500) ghostPosition.y = 500;
+    if (ghostPosition.y < 0) ghostPosition.y = 0;
+    
+    ghost.style.left = ghostPosition.x+ "px";
+    ghost.style.top = ghostPosition.y + "px";
+}, 1000)
+
+
+
+// Make the ghost jump to a random position
+// ghostPosition.x = Math.floor((Math.random() * 7)) * 100;
+// ghostPosition.y =  Math.floor((Math.random() * 5)) * 100;
 
 
 
